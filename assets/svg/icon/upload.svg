@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon / upload</title>
+    <g id="icon-/-upload" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-/-Context" transform="translate(3, 1.85)">
+            <line x1="0.538225174" y1="19.65" x2="17.5196419" y2="19.65" id="Line-3-Copy-2" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+            <line x1="0.5" y1="19.65" x2="0.5" y2="13.65" id="Line-Copy-4" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+            <line x1="17.5" y1="19.65" x2="17.5" y2="13.65" id="Line-Copy-5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+            <path d="M9.34490777,1.01488142 L14.3002684,7.38605939 C14.6393384,7.82200658 14.560804,8.45028218 14.1248568,8.78935222 C13.9493239,8.92587779 13.7332921,9 13.5109162,9 L3.60019492,9 C3.04791017,9 2.60019492,8.55228475 2.60019492,8 C2.60019492,7.77762414 2.67431713,7.56159227 2.8108427,7.38605939 L7.76620334,1.01488142 C8.10527338,0.57893423 8.73354898,0.50039978 9.16949617,0.839469818 C9.23502056,0.890433232 9.29394436,0.949357033 9.34490777,1.01488142 Z" id="Triangle-Copy-2" fill="#000000"></path>
+            <rect id="Rectangle-Copy-12" fill="#000000" x="6.05555556" y="7.2" width="5.4" height="8.1" rx="2"></rect>
+        </g>
+    </g>
+</svg>

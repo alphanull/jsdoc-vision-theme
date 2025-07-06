@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon / play</title>
+    <defs>
+        <path d="M0,0.487067436 C0,0.0585081435 0.315452362,-0.121486759 0.699759808,0.0865592972 L13.7117694,7.12116529 C14.0960769,7.32921134 14.0960769,7.67050038 13.7117694,7.87854644 L0.699759808,14.9139316 C0.315452362,15.1211985 0,14.9412036 0,14.5126443 L0,0.487067436 Z" id="path-1"></path>
+        <filter x="-53.6%" y="-50.1%" width="207.1%" height="200.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.823848271 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icon-/-play" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Fill-1" transform="translate(5, 4)">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>

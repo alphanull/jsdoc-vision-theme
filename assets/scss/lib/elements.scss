@@ -1,0 +1,276 @@
+@use 'mixins' as *;
+
+// Headings & Paragraph
+
+h1, h2, h3, h4 {
+    @include font-bold;
+
+    margin-top: var(--spacing-block-small);
+    color: var(--color-headline);
+    line-height: 1.1;
+
+    @include print { page-break-after: avoid; }
+}
+
+h1 {
+    overflow: hidden;
+    margin-top: var(--spacing-block);
+    font-size: var(--font-size6);
+    text-align: center;
+}
+
+h2 { font-size: var(--font-size5); }
+h3 { font-size: var(--font-size4); }
+h4 { font-size: var(--font-size3); }
+h5 { font-size: var(--font-size3); }
+
+p {
+    @include print {
+        break-inside: avoid-page;
+    }
+}
+
+// linline
+
+b, strong { @include font-bold; }
+
+mark {
+    background-color: var(--color-highlight);
+    color: var(--color-text);
+}
+
+time {
+    white-space: nowrap;
+}
+
+// code
+
+pre {
+    position: relative;
+    background: none;
+    color: inherit;
+    word-wrap: break-word;
+}
+
+code {
+    @include font-mono;
+
+    margin: calc(0.05em * -1) 0;
+    padding: 0.05em var(--spacing2);
+    border-radius: var(--border-radius);
+    background-color: var(--color-box-bg);
+
+    a {
+        @include font-mono-bold;
+    }
+}
+
+blockquote,
+pre code {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: var(--spacing-block-small) calc(var(--spacing-block-small) * 1.5);
+    line-height: var(--font-line-height-code, var(--font-line-height));
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+
+    @include print {
+        overflow: initial;
+        overflow-x: hidden;
+    }
+}
+
+blockquote {
+    @include font-italic;
+
+    padding: var(--spacing-block-small) var(--spacing-block);
+    border-radius: var(--border-radius);
+    background-color: var(--color-box-bg);
+}
+
+// definition Lists
+
+dl {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--spacing-block-small);
+    overflow: auto;
+    padding: var(--spacing3);
+    border: var(--border-width) var(--border-style) var(--color-contrast3);
+    border-radius: var(--border-radius);
+
+    @include respond('phone') {
+        dt { width: 100%; }
+
+        dd + dd {
+            margin-top: calc(var(--spacing2) * -1);
+            margin-left: 0;
+        }
+    }
+
+    @include print {
+        break-inside: avoid;
+    }
+
+    dt {
+        @include font-bold;
+
+        width: 25%;
+    }
+
+    dd {
+        flex-grow: 1;
+        vertical-align: text-top;
+        width: 72%;
+    }
+
+    dd + dd {
+        margin-top: calc(var(--spacing2) * -1);
+        margin-left: calc(25% + var(--spacing-block-small));
+    }
+}
+
+// Separator
+
+hr {
+    clear: both;
+    overflow: visible; // Show the overflow in Edge and IE.
+    box-sizing: content-box; // Add the correct box sizing in Firefox.
+    height: rem(1);
+    margin: var(--spacing-block) calc(var(--main-padding-right) * -1) var(--spacing-block) calc(var(--main-padding-left) * -1);
+    border: none;
+    border-top: var(--border-width) var(--border-style) var(--color-contrast3);
+    background: none;
+    text-align: center;
+
+    &:only-child {
+        border: none; // hide when only element in emtpy container
+    }
+}
+
+// Images
+
+figure, figcaption, picture, video, audio, img {
+    display: block;
+
+    @include print {
+        display: block;
+        box-shadow: none !important;
+        break-inside: avoid;
+    }
+}
+
+img, svg, video {
+    vertical-align: middle;
+    height: auto;
+    border-radius: var(--border-radius);
+
+    &:not(.has-full-width):not(.has-full-height) {
+        max-width: 100%;
+    }
+}
+
+figure {
+
+    figcaption {
+        @include font-bold;
+
+        text-align: left;
+    }
+}
+
+// Content Styles
+
+main {
+
+    h1 + h2 {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    article, section, #content-wrapper-inner {
+
+        > * + h2 {
+            margin-top: calc(var(--spacing-block) * 2);
+        }
+
+        > * + h3 {
+            margin-top: calc(var(--spacing-block) * 1.5);
+        }
+
+        > * + h4 {
+            margin-top: calc(var(--spacing-block));
+        }
+
+        &, h1, h2, h3 {
+            scroll-margin-top: calc(var(--header-height-min) + var(--spacing-block));
+        }
+    }
+
+    article, section, header {
+        &:empty { display: none; }
+    }
+
+    // make certain text elements more narrow and limit the reading size
+    /*> article, > section, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > dl, > blockquote, > pre, > table, > form {
+        max-width: var(--main-text-max-width);
+        margin-left: auto !important;
+        margin-right: auto;
+    }*/
+
+    // ordered, unordered
+
+    ol, ul {
+        padding-left: 1.4rem;
+
+        > li {
+            margin-bottom: var(--spacing2);
+            padding-left: var(--spacing1);
+            hyphens: auto;
+
+            &::marker { color: var(--color-2nd); }
+            li { &::marker { color: var(--color-contrast5); } }
+        }
+
+        ol, ul {
+            margin: var(--spacing2) 0;
+        }
+    }
+
+    ul:not([class]) {
+        padding-left: 1.7rem;
+        list-style: disc;
+    }
+
+    ol:not([class]) {
+        ol { list-style: lower-alpha; }
+    }
+
+    h3, h4, h5, p, dl, blockquote {
+        &:empty { display: none; }
+        &:not(:last-child) { margin-bottom: var(--spacing-block-small); }
+    }
+
+    h1, h2, ul, ol, pre, blockquote, table, figure {
+        &:empty { display: none; }
+        //&:not(:first-child) { margin-top: var(--spacing-block); }
+        &:not(:last-child) { margin-bottom: var(--spacing-block); }
+    }
+
+    h1, h2 {
+        padding-bottom: var(--spacing-block-small);
+        border-bottom: var(--border-width) var(--border-style) var(--color-contrast3);
+        @include print { margin-top: 1cm !important; }
+    }
+
+    video,
+    img {
+        @include font-normal;
+
+        margin-bottom: var(--spacing-block);
+        color: var(--color-text);
+        text-align: center;
+    }
+}

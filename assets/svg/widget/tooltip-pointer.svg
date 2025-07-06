@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="40px" viewBox="0 0 20 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>widget / tooltip-pointer</title>
+    <defs>
+        <polygon id="path-1" points="1 1.0004 19 1.0004 19 19.0004 1 19.0004"></polygon>
+        <polygon id="path-3" points="1.0001 21.0000388 19 21.0000388 19 38.9999 1.0001 38.9999"></polygon>
+    </defs>
+    <g id="widget-/-tooltip-pointer" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <g id="Clip-2"></g>
+        <path d="M18.229,8.5454 L10,1.0004 L1.747,8.5664 C1.747,8.5664 0.999938802,9.0214 0.999938802,9.9854 C0.992,10.8634 1.771,11.4544 1.771,11.4544 L10,19.0004 L18.253,11.4324 C18.253,11.4324 19.0000612,10.9794 19.0000612,10.0144 C19.008,9.1354 18.229,8.5454 18.229,8.5454" id="Fill-1" fill-opacity="0.9" fill="#000000" mask="url(#mask-2)"></path>
+        <mask id="mask-4" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+        <g id="Clip-5"></g>
+        <path d="M11.4331,21.7471 C11.4331,21.7471 10.9791,21.0000388 10.0151,21.0000388 C9.1361,20.9921 8.5451,21.7711 8.5451,21.7711 L1.0001,30.0001 L8.5671,38.2531 C8.5671,38.2531 9.0211,39.0001612 9.9861,39.0001612 C10.8641,39.0081 11.4541,38.2291 11.4541,38.2291 L19.0001,30.0001 L11.4331,21.7471 Z" id="Fill-4" fill-opacity="0.9" fill="#000000" mask="url(#mask-4)"></path>
+    </g>
+</svg>

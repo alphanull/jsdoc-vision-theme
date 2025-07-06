@@ -1,0 +1,107 @@
+<?js /*
+    Copyright 2011 the JSDoc Authors.
+    Modifications Copyright 2025 Frank Kudermann - alphanull.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        https://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/ ?>
+
+<?js
+var data = obj;
+var self = this;
+var isFolded= env.config.templates.showFolded;
+var isPrivate = data.access === 'private';
+var containerClass = 'foldable-container';
+if (isPrivate) containerClass += ' is-private';
+?>
+
+<?js if (!data.hideconstructor) { ?>
+
+    <?js if ((data.kind === 'class' || data.kind === 'module' && data.classdesc)) { ?>
+    <?js= this.partial('details.tmpl', data) ?>
+    <h2 id="section-constructor" class="subsection-title">Constructor</h2>
+    <?js } ?>
+
+    <?js if (data.kind !== 'namespace' && !(kind === 'module' && !data.classdesc)) {?>
+    <h3 class="name <?js= isPrivate ? 'is-private' : ''?>" id="<?js= id ?>">
+        <?js if(kind === 'function') name = name.replace(/^exports\./, "export "); ?>
+        <?js= data.attribs + (kind === 'class' || kind === 'module' && data.classdesc ? 'new ' : '') + (kind === 'class' || kind === 'module' && data.classdesc ? name.replace(/^.*[\\/]/, '') : name) + (data.signature || '') ?>
+        <button type="button" class="foldable-toggle" aria-controls="<?js= id + '_container' ?>" aria-label="Toggle section: <?js= name ?>">
+    </h3>
+    <?js } ?>
+
+    <?js if (data.kind === 'module' && data.classdesc && data.description || data.summary) {?>
+    <div id="<?js= id + '_container' ?>"  class="<?js= containerClass ?>">
+
+        <?js if (data.kind === 'module' && data.classdesc && data.description) { ?>
+        <p class="description"><?js= description ?></p>
+        <?js } ?>
+
+        <?js if (data.summary) { ?>
+        <p class="summary"><?js= summary ?></p>
+        <?js } ?>
+
+        <?js if (data.params && params.length && !data.hideconstructor) { ?>
+            <?js= this.partial('params.tmpl', params) ?>
+        <?js } ?>
+
+        <?js if (data.returns && returns.length || data.exceptions && exceptions.length || data.yields && yields.length) { ?>
+        <dl>
+            <?js if (data.returns && returns.length) { ?>
+                <dt>Returns</dt>
+                <?js returns.forEach(function(r) { ?>
+                <?js= self.partial('returns.tmpl', r) ?>
+            <?js })} ?>
+
+            <?js if (data.exceptions && exceptions.length) { ?>
+                <dt>Throws</dt>
+                <?js exceptions.forEach(function(r) { ?>
+                <?js= self.partial('exceptions.tmpl', r) ?>
+            <?js })} ?>
+
+            <?js if (data.yields && yields.length) { ?>
+                <dt>Yields</dt>
+                <?js yields.forEach(function(r) { ?>
+                <?js= self.partial('returns.tmpl', r) ?>
+            <?js })} ?>
+        </dl>
+        <?js } ?>
+
+    </div>
+    <?js } ?>
+
+<?js } ?>
+
+<?js if ((data.kind !== 'module' || !data.classdesc || !data.description) && !data.summary) {?>
+<div id="<?js= id + '_container' ?>"  class="<?js= containerClass ?>">
+
+<?js if (data.kind !== 'module' && data.description && !data.hideconstructor) { ?>
+<div class="description">
+    <?js= data.description ?>
+</div>
+<?js } ?>
+
+<?js if (data.params && params.length && !data.hideconstructor) { ?>
+    <?js= this.partial('params.tmpl', params) ?>
+<?js } ?>
+
+<?js if (data.kind !== 'class' && !(data.kind === 'module' && data.classdesc)) { ?>
+    <?js= this.partial('details.tmpl', data) ?>
+<?js } ?>
+
+<?js if (data.examples && examples.length) { ?>
+    <h4 class="example">Example<?js= examples.length > 1? 's':'' ?></h4>
+    <?js= this.partial('examples.tmpl', examples) ?>
+<?js } ?>
+
+</div>
+<?js } ?>

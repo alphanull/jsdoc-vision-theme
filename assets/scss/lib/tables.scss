@@ -1,0 +1,45 @@
+@use 'mixins' as *;
+
+table {
+    overflow: hidden;
+    width: 100%;
+    border: var(--border-width) var(--border-style) var(--color-contrast3);
+    border-radius: var(--border-radius);
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+figure table + figcaption {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+thead,
+tbody,
+tfoot {
+    border: none;
+}
+
+th {
+    background-color: var(--table-header-bg);
+    color: var(--table-header-color);
+    text-align: left;
+}
+
+th,
+td {
+    vertical-align: top;
+    padding: var(--spacing2) var(--spacing3);
+    border: none;
+}
+
+tr:not(:last-child) > td {
+    border-bottom: em(1) solid  var(--color-contrast2);
+}
+
+tfoot {
+    @include font-bold;
+
+    border-top: calc(var(--border-width) * 2) var(--border-style) var(--color-2nd);
+}

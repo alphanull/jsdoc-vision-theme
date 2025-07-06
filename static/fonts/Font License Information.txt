@@ -1,0 +1,76 @@
+Font License Information
+========================
+
+This directory contains font files for the JSDoc Vision Theme, including 6 different font packages.
+
+FONT PACKAGES
+=============
+
+1. RECURSIVE
+   Font Name: Recursive
+   Source: https://github.com/arrowtype/recursive
+   License: SIL Open Font License 1.1 (OFL)
+   License URL: https://scripts.sil.org/OFL
+   Files: recursive-regular.woff2, recursive-600.woff2, recursive-italic.woff2
+
+2. SOURCE SANS 3 + SOURCE CODE PRO
+   Font Name: Source Sans 3, Source Code Pro
+   Source: https://github.com/adobe-fonts/source-sans, https://github.com/adobe-fonts/source-code-pro
+   License: SIL Open Font License 1.1 (OFL)
+   License URL: https://scripts.sil.org/OFL
+   Files: source-sans-3-*.woff2, source-code-pro-*.woff2
+
+3. UBUNTU SANS + UBUNTU MONO
+   Font Name: Ubuntu Sans, Ubuntu Mono
+   Source: https://design.ubuntu.com/font/
+   License: Ubuntu Font License 1.0
+   License URL: https://ubuntu.com/legal/font-licence
+   Files: ubuntu-sans-*.woff2, ubuntu-sans-mono-*.woff2
+
+4. FIRA SANS + FIRA CODE
+   Font Name: Fira Sans, Fira Code
+   Source: https://github.com/mozilla/Fira
+   License: SIL Open Font License 1.1 (OFL)
+   License URL: https://scripts.sil.org/OFL
+   Files: fira-sans-*.woff2, fira-code-*.woff2
+
+5. NOTO SANS + NOTO SANS MONO
+   Font Name: Noto Sans, Noto Sans Mono
+   Source: https://github.com/google/fonts
+   License: SIL Open Font License 1.1 (OFL)
+   License URL: https://scripts.sil.org/OFL
+   Files: noto-sans-*.woff2, noto-sans-mono-*.woff2
+
+LICENSE SUMMARIES
+================
+
+SIL Open Font License 1.1 (OFL):
+- Fonts may be used, modified, and distributed freely
+- Fonts may not be sold by themselves
+- When redistributed, the license file must be included
+- Modifications must be clearly marked
+- Font names may not be used to promote products without permission
+
+Ubuntu Font License 1.0:
+- Fonts may be used, modified, and distributed freely
+- Fonts may not be sold by themselves
+- When redistributed, the license file must be included
+- Modifications must be clearly marked
+- Font names may not be used to promote products without permission
+
+Apache License 2.0:
+- Fonts may be used, modified, and distributed freely
+- Attribution must be preserved
+- License and copyright notices must be included
+- Modifications must be clearly marked
+
+USAGE
+=====
+
+All fonts in this directory are licensed for commercial use and may be distributed
+with the JSDoc Vision Theme package. When redistributing this theme, all font
+files and this license information must be included.
+
+For complete license texts, please refer to the respective license URLs above.
+
+Last Updated: June 29, 2024

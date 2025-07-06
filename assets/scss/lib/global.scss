@@ -1,0 +1,135 @@
+@use 'mixins' as *;
+
+@view-transition { navigation: auto; }
+
+// global reset
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+// scrollbar
+
+html {
+
+    ::-webkit-scrollbar-track {
+        background-color: var(--color-contrast3);
+        opacity: 0.5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: var(--border-radius);
+        background-color: var(--color-contrast6);
+        opacity: 0.6;
+        cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-ctl);
+    }
+
+    ::-webkit-scrollbar-thumb:window-inactive {
+        background-color: var(--color-contrast3);
+        opacity: 0.2;
+    }
+
+    &.has-scrollbar {
+        ::-webkit-scrollbar { width: var(--scrollbar-width); }
+    }
+
+    &.has-no-scrollbar{
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--color-contrast6);
+            opacity: 0.6;
+        }
+    }
+}
+
+// selection colors
+
+::selection {
+    background-color: var(--color-highlight);
+    color: var(--color-text);
+}
+
+::-moz-focus-inner { border: none; }
+
+// print
+
+@page {
+    margin: 20mm 10mm; // this affects the margin in the printer settings
+    size: auto;
+}
+
+// Lenis CSS
+
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped { /* stylelint-disable-line selector-class-pattern */
+    overflow: clip;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+    pointer-events: none;
+}
+
+.lenis.lenis-autoToggle { /* stylelint-disable-line selector-class-pattern */
+    transition-property: overflow;
+    transition-duration: 1ms;
+    transition-behavior: allow-discrete;
+}
+
+// icon
+
+.icon {
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+// Accessibility
+
+a.skip-content {
+    position: absolute;
+    overflow: hidden;
+    width: em(1);
+    height: em(1);
+    top: 0.5em;
+    left: -9999em;
+}
+
+a.skip-content:focus-visible {
+    z-index: 100;
+    width: auto;
+    height: auto;
+    left: 48%;
+    background: var(--color-contrast1);
+}
+
+// Layout helper
+
+.has-full-width {
+    position: relative;
+    width: 100vw;
+    right: 50%;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border-radius: 0;
+}
+
+.has-full-height {
+    position: relative;
+    width: auto;
+    height: 100vh;
+    border-radius: 0;
+}

@@ -1,0 +1,43 @@
+{
+    "sourceType": "module",
+
+    "source": {
+        "include": ["./src", "./publish.js", "./lib"]
+    },
+
+    "plugins": ["plugins/markdown"],
+
+    "tags": {
+        "allowUnknownTags": true
+    },
+
+    "templates": {
+        "title": "VisionTheme Documentation",
+        "description": "This is the official documentation for the VisionTheme - a modern, clean, fast, responsive, accessible, and highly customizable documentation theme for JSDoc — designed for 2025 and beyond. ",
+        "sort": false,
+        "logoText": "VisionTheme Documentation",
+        "footer": "<p><b>VisionTheme Version 1.0.0</b> Copyright © 2025-present <a href='https://alphanull.de' target=_blank>alphanull</a> - Frank Kudermann</p>",
+        "showFolded": true,
+        "showPrivates": false,
+        "showSkinSelector": true,
+        "tutorialLabel": "Guide",
+        "tutorialLabelPlural": "Guides",
+        "tutorialHeader": false,
+        "tutorialPageNav": false,
+        "shortModuleLinkNames": true,
+        "outputSourceFiles": true
+    },
+
+    "markdown": {
+        "parser": "gfm",
+        "hardwrap": false
+    },
+
+    "opts": {
+        "template": "./",
+        "destination": "docs",
+        "readme": "./README.md",
+        "recurse": true,
+        "private": true
+    }
+}

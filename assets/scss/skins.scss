@@ -1,0 +1,134 @@
+:root[data-skin=nordic] {
+    --color-neutral-hue: 196;
+    --color-neutral-saturation: 8%;
+    --color-1st-hue: 180;
+    --color-1st-saturation: 50%;
+    --color-1st-lightness: 33%;
+    --color-2nd-hue: 172;
+    --color-2nd-saturation: 37%;
+    --color-2nd-lightness: 41%;
+    --color-3rd-hue: 190;
+    --color-3rd-saturation: 20%;
+    --color-3rd-lightness: 50%;
+}
+
+:root[data-skin=ocean] {
+    --color-neutral-hue: 210;
+    --color-neutral-saturation: 25%;
+    --color-1st-hue: 210;
+    --color-1st-saturation: 80%;
+    --color-1st-lightness: 30%;
+    --color-2nd-hue: 220;
+    --color-2nd-saturation: 68%;
+    --color-2nd-lightness: 39%;
+    --color-3rd-hue: 200;
+    --color-3rd-saturation: 30%;
+}
+
+@media only screen {
+    :root.is-dark-mode[data-skin=ocean] {
+        --color-1st-lightness: 40%;
+        --color-2nd-saturation: 60%;
+        --color-neutral-saturation: 20%;
+    }
+}
+
+:root[data-skin=earth] {
+    --color-neutral-hue: 155;
+    --color-neutral-saturation: 15%;
+    --color-1st-hue: 40;
+    --color-1st-saturation: 100%;
+    --color-1st-lightness: 30%;
+    --color-2nd-hue: 210;
+    --color-2nd-saturation: 70%;
+    --color-2nd-lightness: 30%;
+    --color-3rd-hue: 35;
+    --color-3rd-saturation: 15%;
+    --color-3rd-lightness: 45%;
+}
+
+@media only screen {
+    :root.is-dark-mode[data-skin=earth] {
+        --color-neutral-saturation: 10%;
+        --color-2nd-saturation: 30%;
+    }
+}
+
+:root[data-skin=forest] {
+    --color-neutral-hue: 135;
+    --color-neutral-saturation: 11%;
+    --color-1st-hue: 140;
+    --color-1st-saturation: 50%;
+    --color-1st-lightness: 28%;
+    --color-2nd-hue: 125;
+    --color-2nd-saturation: 30%;
+    --color-2nd-lightness: 25%;
+    --color-3rd-hue: 165;
+    --color-3rd-saturation: 25%;
+    --color-3rd-lightness: 45%;
+}
+
+:root[data-skin=desert] {
+    --color-neutral-hue: 40;
+    --color-neutral-saturation: 15%;
+    --color-1st-hue: 30;
+    --color-1st-saturation: 80%;
+    --color-1st-lightness: 46%;
+    --color-2nd-hue: 50;
+    --color-2nd-saturation: 60%;
+    --color-2nd-lightness: 35%;
+    --color-3rd-hue: 44;
+    --color-3rd-saturation: 7%;
+}
+
+:root[data-skin=fire] {
+    --color-neutral-hue: 11;
+    --color-neutral-saturation: 25%;
+    --color-1st-hue: 11;
+    --color-1st-saturation: 100%;
+    --color-1st-lightness: 45%;
+    --color-2nd-hue: 40;
+    --color-2nd-saturation: 90%;
+    --color-2nd-lightness: 34%;
+    --color-3rd-hue: 28;
+    --color-3rd-saturation: 30%;
+    --color-3rd-lightness: 44%;
+}
+
+:root[data-skin=lavender] {
+    --color-neutral-hue: 260;
+    --color-neutral-saturation: 11%;
+    --color-1st-hue: 30;
+    --color-1st-saturation: 75%;
+    --color-1st-lightness: 45%;
+    --color-2nd-hue: 234;
+    --color-2nd-saturation: 44%;
+    --color-2nd-lightness: 54%;
+    --color-3rd-hue: 256;
+    --color-3rd-saturation: 20%;
+    --color-3rd-lightness: 50%;
+}
+
+:root[data-skin=candy] {
+    --color-neutral-hue: 330;
+    --color-neutral-saturation: 25%;
+    --color-1st-hue: 316;
+    --color-1st-saturation: 88%;
+    --color-1st-lightness: 50%;
+    --color-2nd-hue: 184;
+    --color-2nd-saturation: 80%;
+    --color-2nd-lightness: 40%;
+    --color-3rd-hue: 204;
+    --color-3rd-saturation: 30%;
+}
+
+:root[data-skin=grayscale] {
+    --color-neutral-hue: 0;
+    --color-neutral-saturation: -100%;
+    --color-1st-hue: 0;
+    --color-1st-saturation: -100%;
+    --color-1st-lightness: 30%;
+    --color-2nd-hue: 0;
+    --color-2nd-saturation: -100%;
+    --color-2nd-lightness: 40%;
+}

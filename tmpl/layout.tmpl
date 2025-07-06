@@ -1,0 +1,211 @@
+<?js /*
+    Copyright 2011 the JSDoc Authors.
+    Modifications Copyright 2025 Frank Kudermann - alphanull.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        https://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/ ?>
+
+<?js
+var baseClass = '';
+if(this.showFolded) baseClass += ' is-folded';
+if(this.showPrivate) baseClass += ' no-privates';
+if(this.showSkinSelector) baseClass += ' has-skin-selector';
+if(this.showFontSelector) baseClass += ' has-font-selector';
+if(!this.needsAside) baseClass += ' has-no-sidebar';
+?>
+
+<!DOCTYPE html>
+<html lang="en" data-version="<?js= this.version ?>" <?js if(this.fontFamily) { ?> data-font="<?js= this.fontFamily ?>" <?js } ?> <?js if(this.skin) { ?> data-skin="<?js= this.skin ?>" <?js } ?> class="<?js= baseClass ?>">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta content="<?js= this.desc || this.description ?>" name="description">
+    <title><?js= this.title ? this.title + ' | ' : '' ?> <?js= title ?></title>
+    <link type="text/css" rel="stylesheet" href="styles/main.<?js= this.version ?>.css">
+    <?js if(this.cssFile) { ?><link type="text/css" rel="stylesheet" href="<?js= this.cssFile ?>"><?js } ?>
+    <?js if(this.icoFile) { ?><link rel="icon" type="<?js= this.icoType ?>" href="<?js= this.icoFile ?>"><?js } ?>
+    <?js if(this.jsFile) { ?><script src="<?js= this.jsFile ?>"></script><?js } ?>
+</head>
+
+<body>
+
+<a href="#content-wrapper-inner" class="skip-content">Skip to content</a>
+
+<script>
+
+    const doc = document.documentElement;
+
+    // execute as soon as possible to prevent FOUC
+    if (window.localStorage) {
+        const darkMode = window.localStorage.getItem('darkmode');
+        if (darkMode === 'dark') doc.classList.add('is-dark-mode');
+        else if (!darkMode && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+             doc.classList.add('is-dark-mode')
+        }
+
+        const showPrivates = window.localStorage.getItem('showPrivates');
+        if (showPrivates === 'false') doc.classList.add('no-privates');
+
+        const showSidebar = window.localStorage.getItem('showSidebar');
+        if (showSidebar === 'false') doc.classList.add('no-sidebar');
+
+        const hasSkinSelector = doc.classList.contains('has-skin-selector');
+        if (hasSkinSelector) {
+            const skin = window.localStorage.getItem('skin');
+            if (skin) doc.dataset.skin = skin;
+        }
+
+        const collapseOnLoad = window.localStorage.getItem('collapseOnLoad');
+        if (collapseOnLoad === 'true') doc.classList.add('is-folded');
+        if (collapseOnLoad === 'false') doc.classList.remove('is-folded');
+
+        const uiScale = window.localStorage.getItem('uiScale');
+        if (uiScale) doc.style.setProperty('--font-size-base', `${parseInt(uiScale, 10)}px`);
+
+        const font = window.localStorage.getItem('fontFamily') || doc.dataset.font || 'ubuntu';
+        doc.dataset.font = font;
+    }
+
+    // calculate scrollbar width
+    const scrollDiv = document.createElement("div");
+    scrollDiv.setAttribute("style", "width: 100px; height: 100px; overflow: scroll; position: absolute; top: -9999px;");
+    doc.appendChild(scrollDiv);
+    let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth; // Get the scrollbar width
+    if (isNaN(scrollbarWidth)) scrollbarWidth = 12;
+    doc.removeChild(scrollDiv);
+
+    const scrollOffset = document.body.scrollHeight > window.innerHeight ? scrollbarWidth : 0;
+    doc.style.setProperty("--scrollbar-offset", `${scrollOffset}px`);
+    doc.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
+
+    if (scrollbarWidth > 0) doc.classList.add("has-scrollbar");
+    else doc.classList.add("has-no-scrollbar");
+
+</script>
+
+<div id="wrapper-global">
+
+    <header id="header-main">
+        <div id="header-main-inner">
+            <a id="logo" class="logo-link" href="index.html">
+                <?js if(this.logo.light) { ?><img width="1" height="1" class="logo-img is-dark" alt="logo" src="<?js= this.logo.dark ?>" /><?js } ?>
+                <?js if(this.logo.dark) { ?><img width="1" height="1" class="logo-img is-light"alt="logo" src="<?js= this.logo.light ?>" /><?js } ?>
+                <?js if(this.logo.text) { ?><div class="logo-text"><?js= this.logo.text ?></div><?js } ?>
+            </a>
+            <nav id="nav-main-wrapper">
+                <button id="menu-mobile-close" class="icon close" title="Close Mobile Menu"></button>
+                <?js= this.nav ?>
+            </nav>
+            <button id="search-button" class="icon search" aria-label="Search" title="Search" />
+            <button id="settings-button" class="icon settings" aria-label="Settings" title="Settings" />
+            <button id="menu-mobile-button" class="icon" aria-label="Mobile Menu" title="Mobile Menu"></button>
+        </div>
+    </header>
+
+    <div id="content-wrapper" tabindex="-1">
+        <div id="content-wrapper-inner">
+
+            <main>
+                <h1 class="page-title"><?js= title ?></h1>
+                <?js= content ?>
+            </main>
+
+            <aside id="sidebar"><?js= aside ?></aside>
+
+        </div>
+    </div>
+
+    <footer>
+
+        <div id="footer-content">
+            <?js if(this.footer) { ?><div class="footer-content-custom"><?js= this.footer ?></div><?js } ?>
+            <p>Documentation generated
+                <?js if(env.conf.templates.default && env.conf.templates.default.includeDate !== false) { ?>
+                on <?js= (new Date()).toLocaleString('en-US') ?><?js } ?>
+                by <a href="https://github.com/jsdoc/jsdoc" target=_blank>JSDoc <?js= env.version.number ?></a>
+                &amp; <a href="https://github.com/alphanull/jsdoc-vision-theme" target=_blank>Vision Theme</a>.</p>
+        </div>
+
+    </footer>
+
+</div>
+
+<div id="settings" style="display: none;">
+
+    <h3>Settings</h3>
+
+    <menu class="is-grouped is-radio is-stretched" role="menu">
+        <li role="none"><button id="collapse-button" role="menuitem" onclick="collapseAllSections()">Collapse All</button></li>
+        <li role="none"><button id="expand-button" role="menuitem" onclick="expandAllSections()">Expand All</button></li>
+    </menu>
+
+    <?js if(this.showSkinSelector) { ?>
+    <select id="skin-select">
+    <?js Object.entries(this.skins).forEach(function([key, value]) {?>
+        <option value="<?js= key ?>"><?js= value ?></option>
+    <?js }); ?>
+    </select>
+    <?js } ?>
+
+    <?js if(this.showFontSelector) { ?>
+    <select id="font-select">
+    <?js Object.entries(this.fonts).forEach(function([key, value]) {?>
+        <option value="<?js= key ?>" <?js if(key === this.fontFamily) { ?>selected<?js } ?>><?js= value ?></option>
+    <?js }); ?>
+    </select>
+    <?js } ?>
+
+    <label for="uiscale-settings">
+        <span class="form-label-text">UI Scale</span>
+        <input type="range" step="1" min="9" max="19" value="14" id="uiscale-settings" name="uiscale-settings" class="has-center-line">
+    </label>
+
+    <label for="darkmode-settings">
+        <span class="form-label-text">Darkmode</span>
+        <input type="checkbox" checked id="darkmode-settings" name="darkmode-settings" class="is-toggle">
+    </label>
+
+    <label for="collapse-settings">
+        <span class="form-label-text">Collapse on Load</span>
+        <input type="checkbox" checked id="collapse-settings" name="collapse-settings" class="is-toggle">
+    </label>
+
+    <label for="sidebar-settings">
+        <span class="form-label-text">Show Sidebar</span>
+        <input type="checkbox" checked id="sidebar-settings" name="sidebar-settings" class="is-toggle">
+    </label>
+
+    <?js if(this.hasPrivates) { ?>
+    <label for="private-settings">
+        <span class="form-label-text">Show Privates</span>
+        <input type="checkbox" checked id="private-settings" name="private-settings" class="is-toggle">
+    </label>
+    <?js } ?>
+
+</div>
+
+<div id="search" style="display: none;">
+
+    <div class="search-input">
+        <input type="text" id="search-input" placeholder="Search docs" autocomplete="off">
+    </div>
+
+    <ul id="search-results"></ul>
+
+</div>
+
+<script defer src="scripts/main.<?js= this.version ?>.min.js"></script>
+
+</body>
+</html>

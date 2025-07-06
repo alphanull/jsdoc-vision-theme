@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon / nextnext</title>
+    <g id="icon-/-nextnext" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Controls-/-Checked" transform="translate(5, 5)" stroke="#000000" stroke-width="3">
+            <g id="Icon-/-Prev-Copy-3" transform="translate(11.5, 6.5) rotate(-180) translate(-11.5, -6.5)translate(8, 0)">
+                <g id="Group" transform="translate(-0, 0)">
+                    <line x1="0" y1="0" x2="6" y2="7" id="Line-Copy" transform="translate(3.5, 3.5) rotate(-270) translate(-3.5, -3.5)"></line>
+                    <line x1="0" y1="13" x2="6" y2="6" id="Line-2-Copy" transform="translate(3.5, 9.5) rotate(-270) translate(-3.5, -9.5)"></line>
+                </g>
+            </g>
+            <g id="Icon-/-Prev-Copy-3" transform="translate(3.5, 6.5) rotate(-180) translate(-3.5, -6.5)translate(0, 0)">
+                <g id="Group" transform="translate(0, 0)">
+                    <line x1="0" y1="0" x2="6" y2="7" id="Line-Copy" transform="translate(3.5, 3.5) rotate(-270) translate(-3.5, -3.5)"></line>
+                    <line x1="0" y1="13" x2="6" y2="6" id="Line-2-Copy" transform="translate(3.5, 9.5) rotate(-270) translate(-3.5, -9.5)"></line>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

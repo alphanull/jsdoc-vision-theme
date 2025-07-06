@@ -1,0 +1,95 @@
+@use '../lib/mixins' as *;
+
+.hljs {
+
+    .hljs-comment,
+    .hljs-quote,
+    .hljs-meta {
+        @include font-mono-italic;
+
+        color: var(--code-color-comment);
+    }
+
+    .hljs-comment .hljs-type,
+    .hljs-comment .hljs-variable,
+    .hljs-doctag {
+        font-weight: 550;
+        color: var(--code-color-doctag);
+    }
+
+    .hljs-keyword,
+    .hljs-formula {
+        color: var(--code-color-keyword);
+    }
+
+    .hljs-function,
+    .function_ {  /* stylelint-disable-line selector-class-pattern */
+        color: var(--code-color-symbol);
+    }
+
+    .hljs-section,
+    .hljs-name,
+    .hljs-selector-tag,
+    .hljs-deletion {
+        color: var(--code-color-name);
+    }
+
+    .hljs-literal,
+    .hljs-number {
+        color: var(--code-color-literal);
+    }
+
+    .hljs-attr,
+    .hljs-attribute,
+    .hljs-selector-attr,
+    .hljs-selector-pseudo,
+    .hljs-type {
+        color: var(--code-color-attribute);
+    }
+
+    .hljs-string,
+    .hljs-regexp,
+    .hljs-addition,
+    .hljs-meta .hljs-string {
+        color: var(--code-color-string);
+    }
+
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-subst,
+    .hljs-selector-class,
+    .hljs-function .hljs-params {
+        color: var(--code-color-variable);
+    }
+
+    .hljs-symbol,
+    .hljs-bullet,
+    .hljs-link,
+    .hljs-selector-id,
+    .hljs-title.class_,  /* stylelint-disable-line selector-class-pattern */
+    .hljs-title {
+        color: var(--code-color-symbol);
+    }
+
+    .hljs-built_in, /* stylelint-disable-line selector-class-pattern */
+    .hljs-class .hljs-title {
+        color: var(--code-color-builtin);
+    }
+
+    .hljs-emphasis {
+        font-style: italic;
+    }
+
+    .hljs-strong {
+        font-weight: bold;
+    }
+
+    .hljs-link {
+        text-decoration: underline;
+    }
+
+    .hljs-ln-n {
+        padding-right: 1em;
+        text-align: right;
+    }
+}

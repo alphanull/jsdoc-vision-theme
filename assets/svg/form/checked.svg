@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>form / checked</title>
+    <g id="form-/-checked" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Controls-/-Checked" transform="translate(6, 7)" stroke="#000000" stroke-width="3">
+            <line x1="0" y1="5" x2="4" y2="9" id="Line"></line>
+            <line x1="4" y1="9" x2="12.6875" y2="0.3125" id="Line-2"></line>
+        </g>
+    </g>
+</svg>

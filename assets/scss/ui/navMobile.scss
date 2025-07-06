@@ -1,0 +1,193 @@
+@use '../lib/mixins.scss' as *;
+
+#menu-mobile-button {
+    @include icon-masked('icon/menu.svg', 2em, var(--color-text));
+
+    display: none;
+    @include respond('tablet') { display: block; }
+}
+
+#menu-mobile-close {
+    @include icon-masked('icon/close.svg', 2em, var(--color-text));
+
+    display: none;
+    margin-bottom: var(--spacing-block-small);
+
+    &:focus,
+    &:hover {
+        transform: scale(1.1) rotate(90deg);
+    }
+}
+
+// Mobile Menu
+
+.menu-mobile {
+    @include transition('backdrop-filter');
+
+    position: fixed;
+    z-index: 99;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    will-change: backdrop-filter;
+    &.visible { backdrop-filter: var(--backdrop-filter); }
+
+    #menu-mobile-close { display: inline-block; }
+}
+
+.menu-mobile-content {
+    @include tap-highlight-disable;
+    @include transition('transform, opacity, filter');
+
+    position: relative;
+    display: none;
+    z-index: 999;
+    float: right;
+    overflow: hidden;
+    min-width: 15em;
+    min-height: rem(1);
+    right: 0;
+    left: -9999em;
+    margin-top: 0;
+    margin-bottom: 1.2em;
+    padding: var(--spacing4);
+    border-radius: 0;
+    border-bottom-left-radius: var(--border-radius);
+    background-color: var(--mobile-menu-bg);
+    box-shadow: rem(-5) rem(5) rem(30) 0 rgba(black, 0.5);
+    opacity: 0;
+    filter: blur(10px);     /* stylelint-disable-line unit-disallowed-list */
+    transform: translateX(100%);
+    touch-action: pan-y;
+    will-change: transform;
+
+    &.dragging { transition: none; }
+    &:hover { cursor: default; }
+
+    .menu-mobile.active & {
+        @include tap-highlight-disable;
+
+        display: block;
+        max-width: 80%;
+        left: auto;
+    }
+
+    .menu-mobile.active.visible & {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+.menu-mobile-wrapper {
+    @include tap-highlight-disable;
+
+    position: absolute;
+    z-index: 1;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.01);
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    &:hover { cursor: not-allowed; }
+}
+
+.menu-mobile-bg {
+    @include inset;
+    @include transition('opacity');
+    @include tap-highlight-disable;
+
+    position: absolute;
+    overflow: hidden;
+    background-color: var(--color-contrast3);
+    user-select: none;
+    opacity: 0;
+    will-change: opacity;
+
+    &:hover { cursor: not-allowed; }
+    .menu-mobile.active > & { transition-delay: 0.1s; }
+    .menu-mobile.visible > & { opacity: 0.7; }
+}
+
+// mobile nav
+
+.menu-mobile-wrapper #nav-main {
+    flex-direction: column;
+
+    span, a {
+        @include text-ellipsis;
+    }
+
+    > li > span,
+    > li > a {
+        font-size: var(--font-size4);
+    }
+
+    li > span {
+        margin-top: 0.2em;
+        margin-bottom: 0.2em;
+        color: var(--color-contrast7);
+    }
+
+    menu {
+        margin: var(--spacing2) 0;
+        padding: var(--spacing3);
+        border-radius: var(--border-radius);
+        background-color: var(--color-contrast3);
+
+        menu {
+            margin: var(--spacing3);
+            background-color: var(--color-contrast2);
+        }
+
+        > li {
+            @include text-ellipsis;
+
+            width: calc(100% + var(--spacing3) * 2);
+            margin-top: 0 !important;
+            margin-left: calc(var(--spacing3) * -1);
+            margin-right: calc(var(--spacing3) * -1);
+
+            a {
+                padding: var(--spacing2) var(--spacing4);
+                border-radius: var(--border-radius);
+                &:not(:hover) { color: var(--color-text); }
+            }
+
+            &:not(:first-child):not(:last-child) > a {
+                border-radius: 0;
+            }
+
+            &:first-child {
+                margin-top: calc(var(--spacing3) * -1) !important;
+
+                > a {
+                    border-bottom-right-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: calc(var(--spacing3) * -1);
+
+                > a {
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                }
+            }
+        }
+    }
+}
+
+html.is-dark-mode .menu-mobile-wrapper #nav-main menu {
+    background-color: var(--color-contrast1);
+
+    menu {
+        background-color: var(--color-contrast1);
+    }
+}

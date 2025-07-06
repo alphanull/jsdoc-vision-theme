@@ -1,0 +1,352 @@
+@use '../lib/mixins.scss' as *;
+
+// global layout
+html {
+    font-size: var(--font-size-base);
+    @include print { font-size: 0.625em; }
+}
+
+body {
+    @include font-normal;
+
+    width: 100%;
+    background-color: var(--color-bg);
+    font-size: var(--font-size);
+    color: var(--color-text);
+    line-height: var(--font-line-height);
+    text-rendering: geometricprecision;
+    text-size-adjust: none;
+    overflow-y: scroll;
+
+    @include print {
+        width: auto;
+        background: white;
+    }
+}
+
+#wrapper-global {
+    @include transition('transform');
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    max-width: 100vw;
+
+    @include print {
+        min-height: initial;
+        background: white;
+    }
+
+    body[style*='overflow: hidden'] > &,
+    .menu-mobile + &,
+    .ov + & {
+        margin-right: var(--scrollbar-width);
+    }
+}
+
+#content-wrapper {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    max-width: 95vw;
+    padding-left: calc(env(safe-area-inset-left) * 0.75);
+    padding-right: calc(env(safe-area-inset-right) * 0.75);
+
+    @include respond('phablet') {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    @include print {
+        display: block;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+}
+
+#content-wrapper-inner {
+    display: flex;
+    flex-grow: 1;
+    z-index: 10;
+    width: var(--page-width);
+    min-width: var(--page-width-min);
+    max-width: var(--page-width-max);
+    margin-top: var(--spacing-block);
+    border-radius: var(--border-radius);
+    background-color: var(--page-bg);
+    box-shadow: var(--page-shadow);
+    scroll-margin-top: calc(var(--header-height-min) + var(--spacing-block));
+
+    @include respond('phablet') {
+        width: 100vw;
+        max-width: 100vw;
+        margin-top: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    @include print {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        box-shadow: none;
+    }
+}
+
+main {
+    width: calc(100% - var(--aside-width));
+    min-width: 0;
+    min-height: 40rem;
+    max-width: 95vw;
+    padding: var(--main-padding-vert) var(--main-padding-hor);
+    overflow-x: hidden;
+    overflow-x: clip;
+
+    @include respond('phablet') { max-width: 100vw; }
+    @include respond('tablet-narrow') { width: 100%; }
+
+    @include print {
+        width: 100%;
+        max-width: none;
+    }
+
+    html.no-sidebar &,
+    html.has-no-sidebar & { width: 100%; }
+}
+
+aside {
+    position: relative;
+    overflow: clip;
+    width: var(--aside-width);
+    min-width: var(--aside-width-min);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    background-color: var(--aside-bg);
+
+    @include respond('tablet-narrow') { display: none; }
+    @include print { display: none; }
+
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        width: 0.5em;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: var(--aside-gradient);
+    }
+
+    &:empty,
+    html.no-sidebar & {
+        width: 0;
+        min-width: 0;
+    }
+
+    #nav-aside {
+        position: sticky;
+        flex-direction: column;
+        align-items: flex-start;
+        z-index: 1;
+        top: calc(var(--header-height-min) + var(--spacing6));
+        margin: var(--spacing-block);
+        text-align: left;
+
+        &.sticky-bottom{
+            top: auto !important;
+            bottom: 0;
+        }
+
+        menu {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-block-small);
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+            text-align: left;
+            list-style: none;
+
+            li {
+                @include font-bold;
+
+                max-width: 100%;
+                padding-left: var(--spacing2);
+            }
+
+            a {
+                @include text-ellipsis;
+
+                display: block;
+                max-width: 100%;
+                padding-left: var(--spacing2);
+                border-radius: var(--border-radius);
+            }
+
+            menu {
+                gap: var(--spacing2);
+                margin-top: var(--spacing-block-small);
+
+                li { @include font-normal; }
+                a:not(:hover) { color: var(--color-text); }
+            }
+        }
+    }
+}
+
+article {
+    @include print { padding: 0; }
+}
+
+#header-main {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    z-index: 50;
+    width: 100%;
+    height: calc(var(--header-height-max));
+    top: calc((var(--header-height-min) - var(--header-height-max)));
+    left: 0;
+    padding-left: calc(env(safe-area-inset-left) * 0.75);
+    padding-right: calc(env(safe-area-inset-right) * 0.75);
+    background-color: var(--header-bg);
+    color: var(--header-color);
+    box-shadow: var(--header-shadow);
+    backdrop-filter: var(--backdrop-filter);
+
+    @include print {
+        position: static;
+        height: auto;
+        top: auto;
+        box-shadow: none;
+        &::before { display: none; }
+    }
+
+    .icon::before {
+        background-color: var(--header-color);
+    }
+}
+
+#header-main-inner {
+    position: sticky;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-block-small);
+    width: var(--page-width);
+    height: calc(var(--header-height-min));
+    min-width: var(--page-width-min);
+    max-width: var(--page-width-max);
+    top: 0;
+    margin: 0 auto;
+    padding: var(--spacing2) 0;
+
+    @include print {
+        position: static;
+        width: auto;
+        height: auto;
+        min-width: initial;
+        min-height: initial;
+        transform: none !important;
+
+        > button {
+            display: none;
+        }
+    }
+
+    &:hover .logo-link { will-change: transform; }
+}
+
+#logo {
+    @include tap-highlight-disable;
+    @include transition('transform');
+
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transform-origin: left center;
+
+    @include print { transform: none !important; }
+
+    &:active,
+    &:focus,
+    &:hover {
+        background: none;
+        box-shadow: none;
+    }
+
+    .logo-text {
+        @include font-bold;
+
+        flex-shrink: 0;
+        margin-left: var(--spacing3);
+        font-size: 1.6em;
+        color: var(--color-text);
+        white-space: nowrap;
+
+        @include print { font-size: 1.2cm; }
+    }
+
+    .logo-img {
+        width: auto;
+        height: 100%;
+        min-width: 0;
+        max-height: 2.5em;
+        border-radius: 0;
+
+        @include print { height: 1.5cm; }
+
+        &.is-dark-mode { display: none; }
+    }
+
+    @media (hover: hover) {
+        &:hover { transform: scale(1.1); }
+    }
+}
+
+html:not(.is-dark-mode) {
+    #logo .logo-img.is-light { display: inline-block; }
+    #logo .logo-img.is-dark { display: none; }
+}
+
+html.is-dark-mode {
+    #logo .logo-img.is-light { display: none; }
+    #logo .logo-img.is-dark { display: inline-block; }
+}
+
+@include print {
+    #logo .logo-img.is-light { display: inline-block !important; }
+    #logo .logo-img.is-dark { display: none !important; }
+}
+
+footer {
+    position: sticky;
+    z-index: 0;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+
+    @include print { position: static; }
+}
+
+#footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-block-small);
+    width: 90vw;
+    min-width: var(--page-width-min);
+    max-width: var(--page-width-max);
+    margin: 0 auto;
+    padding: var(--main-padding-vert) var(--main-padding-hor);
+    padding-left: calc(env(safe-area-inset-left) * 0.75);
+    padding-right: calc(env(safe-area-inset-right) * 0.75);
+    text-align: center;
+}

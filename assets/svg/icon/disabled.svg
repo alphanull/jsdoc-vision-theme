@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon / disabled</title>
+    <defs>
+        <polygon id="path-1" points="0 0 18 0 18 18 0 18"></polygon>
+    </defs>
+    <g id="icon-/-disabled" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3" transform="translate(3, 3)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Clip-2"></g>
+            <path d="M9,15.57 C7.75714286,15.57 6.59914286,15.219 5.60871429,14.6198571 L14.6198571,5.60871429 C15.219,6.59957143 15.57,7.75714286 15.57,9 C15.57,12.63 12.6295714,15.57 9,15.57 M2.43,9 C2.43,5.37 5.37,2.43 9,2.43 C10.2985714,2.43 11.5054286,2.81142857 12.5245714,3.46114286 L3.46114286,12.5245714 C2.81142857,11.5058571 2.43,10.2985714 2.43,9 M9,0 C4.02771429,0 0,4.02728571 0,9 C0,13.9722857 4.02771429,18 9,18 C13.9722857,18 18,13.9722857 18,9 C18,4.02728571 13.9722857,0 9,0" id="Fill-1" fill="#000000" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

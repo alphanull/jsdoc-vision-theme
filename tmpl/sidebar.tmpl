@@ -1,0 +1,97 @@
+<?js /*
+    Copyright 2011 the JSDoc Authors.
+    Modifications Copyright 2025 Frank Kudermann - alphanull.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        https://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/ ?>
+
+<?js
+    var self = this;
+    var isGlobalPage;
+    doc = docs[0];
+?>
+
+<nav id="nav-aside"><menu>
+
+<?js if ((doc.kind === 'class' || doc.kind === 'module') && doc.classdesc) { ?>
+    <li><a href="#section-constructor">Constructor</a>
+<?js } ?>
+
+<?js var namespaces = self.find({kind: 'namespace', memberof: doc.longname});
+    if (!isGlobalPage && namespaces && namespaces.length) { ?>
+    <li><a href="#section-namespaces">Namespaces</a>
+    <menu>
+    <?js namespaces.forEach(function(n) { ?>
+        <li><a href="#<?js= n.id ?>"><?js= n.name ?></a></li>
+    <?js }); ?>
+    </menu></li>
+<?js } ?>
+
+<?js var enums = self.find({kind: 'enum', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+    if (enums && enums.length && enums.forEach) { ?>
+    <li><a href="#section-enums">Enums</a>
+    <menu>
+    <?js enums.forEach(function(e) { ?>
+        <li><a href="#<?js= e.id ?>"><?js= e.name ?></a></li>
+    <?js }); ?>
+    </menu></li>
+<?js } ?>
+
+<?js
+    var members = self.find({kind: 'member', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+    // symbols that are assigned to module.exports are not globals, even though they're not a memberof anything
+    if (isGlobalPage && members && members.length && members.forEach) {
+        members = members.filter(function(m) { return m.longname && m.longname.indexOf('module:') !== 0; });
+    }
+    if (members && members.length && members.forEach) { ?>
+        <li><a href="#section-members">Members</a>
+        <menu>
+        <?js members.forEach(function(p) { ?>
+             <?js var name = p.name.replace(/^exports\./, ""); ?>
+            <li class="<?js= p.access === 'private' ? 'is-private' : '' ?>"><a href="#<?js= p.id ?>"><?js= name ?></a></li>
+        <?js }); ?>
+        </menu></li>
+<?js } ?>
+
+<?js var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+    if (methods && methods.length && methods.forEach) { ?>
+    <li><a href="#section-methods">Methods</a>
+    <menu>
+    <?js methods.forEach(function(m) { ?>
+        <?js  var name = m.name.replace(/^exports\./, ""); ?>
+        <li class="<?js= m.access === 'private' ? 'is-private' : '' ?>"><a href="#<?js= m.id ?>"><?js= name ?></a></li>
+    <?js }); ?>
+    </menu></li>
+<?js } ?>
+
+<?js var typedefs = self.find({kind: 'typedef', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+    if (typedefs && typedefs.length && typedefs.forEach) { ?>
+    <li><a href="#section-typedefs">Type Definitions</a>
+    <menu>
+    <?js typedefs.forEach(function(e) { ?>
+        <li><a href="#<?js= e.id ?>"><?js= e.name ?></a></li>
+    <?js }); ?>
+    </menu></li>
+<?js } ?>
+
+<?js var events = self.find({kind: 'event', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+    if (events && events.length && events.forEach) { ?>
+    <li><a href="#section-events">Events</a>
+    <menu>
+    <?js events.forEach(function(e) { ?>
+        <li><a href="#<?js= e.id ?>"><?js= e.name ?></a></li>
+    <?js }); ?>
+    </menu></li>
+<?js } ?>
+
+</menu></nav>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="52px" viewBox="0 0 26 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>widget / popup-pointer</title>
+    <defs>
+        <polygon id="path-1" points="1.00011327 0.9999 25 0.9999 25 24.9996 1.00011327 24.9996"></polygon>
+        <polygon id="path-3" points="1 27.0000133 24.9996 27.0000133 24.9996 50.9999 1 50.9999"></polygon>
+    </defs>
+    <g id="widget-/-popup-pointer" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <g id="Clip-2"></g>
+        <path d="M23.9722,11.0606 L13.0002,0.9996 L1.9962,11.0896 C1.9962,11.0896 1.00011327,11.6946 1.00011327,12.9806 C0.9892,14.1526 2.0282,14.9386 2.0282,14.9386 L13.0002,24.9996 L24.0042,14.9106 C24.0042,14.9106 25.0002867,14.3056 25.0002867,13.0186 C25.0112,11.8476 23.9722,11.0606 23.9722,11.0606" id="Fill-1" fill-opacity="0.9" fill="#000000" mask="url(#mask-2)"></path>
+        <mask id="mask-4" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+        <g id="Clip-5"></g>
+        <path d="M14.9106,27.9961 C14.9106,27.9961 14.3056,27.0000133 13.0186,27.0000133 C11.8476,26.9891 11.0606,28.0281 11.0606,28.0281 L0.9996,39.0001 L11.0896,50.0041 C11.0896,50.0041 11.6946,51.0001867 12.9806,51.0001867 C14.1526,51.0111 14.9396,49.9721 14.9396,49.9721 L24.9996,39.0001 L14.9106,27.9961 Z" id="Fill-4" fill-opacity="0.9" fill="#000000" mask="url(#mask-4)"></path>
+    </g>
+</svg>

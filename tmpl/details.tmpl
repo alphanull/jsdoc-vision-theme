@@ -1,0 +1,205 @@
+<?js /*
+    Copyright 2011 the JSDoc Authors.
+    Modifications Copyright 2025 Frank Kudermann - alphanull.    Modifications Copyright 2025 Frank Kudermann - alphanull.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        https://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+*/ ?>
+
+<?js
+var data = obj;
+var self = this;
+var defaultObjectClass = '';
+
+// Check if the default value is an object or array; if so, apply code highlighting
+if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvaluetype === 'array')) {
+    data.defaultvalue = "<pre class=\"prettyprint\"><code>" + data.defaultvalue + "</code></pre>";
+    defaultObjectClass = ' class="object-value"';
+}
+?>
+
+<?js
+    var properties = data.properties;
+    if (properties && properties.length && properties.forEach && !data.hideconstructor) {?>
+
+    <?js= this.partial('properties.tmpl', data) ?>
+
+<?js } ?>
+
+
+<?js if (data.version || data.since || data.inherited || data.author || data.copyright || data.license || data.defaultvalue || data.see || data.todo || data.deprecated || data.type || data['this'] || data.augments || data.overrides || data.implementations || data.implements || data.mixes || data.requires || data.fires || data.listens || data.listeners || data.modifies || data.returns || data.exceptions || data.yields || (data.meta && self.outputSourceFiles)) {?>
+<dl class="details">
+
+    <?js if (data.version) {?>
+    <dt class="tag-version">Version</dt>
+    <dd class="tag-version"><?js= version ?></dd>
+    <?js } ?>
+
+    <?js if (data.since) {?>
+    <dt class="tag-since">Since</dt>
+    <dd class="tag-since"><?js= since ?></dd>
+    <?js } ?>
+
+    <?js if (data.inherited && data.inherits && !data.overrides) { ?>
+    <dt class="inherited-from">Inherited from</dt>
+    <dd class="inherited-from">
+        <?js= this.linkto(data.inherits, this.htmlsafe(data.inherits)) ?>
+    </dd>
+    <?js } ?>
+
+    <?js if (data.author && author.length) {?>
+    <dt class="tag-author">Author</dt>
+    <?js author.forEach(function(a) { ?>
+    <dd class="tag-author"><?js= self.resolveAuthorLinks(a) ?></dd>
+    <?js }); ?>
+    <?js } ?>
+
+    <?js if (data.copyright) {?>
+    <dt class="tag-copyright">Copyright</dt>
+    <dd class="tag-copyright"><?js= copyright ?></dd>
+    <?js } ?>
+
+    <?js if (data.license) {?>
+    <dt class="tag-license">License</dt>
+    <dd class="tag-license"><?js= license ?></dd>
+    <?js } ?>
+
+    <?js if (data.defaultvalue) {?>
+    <dt class="tag-default">Default</dt>
+    <dd class="tag-default"><?js= data.defaultvalue ?></dd>
+    <?js } ?>
+
+    <?js if (data.see && see.length) {?>
+    <dt class="tag-see">See</dt>
+    <?js see.forEach(function(s) { ?>
+        <dd class="tag-see"><?js= self.linkto(s) ?></dd>
+    <?js }); ?>
+    <?js } ?>
+
+    <?js if (data.todo && todo.length) {?>
+    <dt class="tag-todo">ToDo</dt>
+    <?js todo.forEach(function(t) { ?>
+        <dd class="tag-todo"><?js= t ?><dd class="tag-todo">
+    <?js }); ?>
+    <?js } ?>
+
+    <?js if (data.deprecated) { ?>
+        <dt class="important tag-deprecated">Deprecated:</dt><?js
+            if (data.deprecated === true) { ?><dd class="yes-def tag-deprecated">Yes</dd><?js }
+            else { ?><dd><?js= data.deprecated ?></dd><?js }
+        ?>
+    <?js } ?>
+
+    <?js if (data.type && data.type.names) {?>
+        <dt>Type</dt>
+        <dd><?js= self.partial('type.tmpl', data.type.names) ?></dd>
+    <?js } ?>
+
+    <?js if (data['this']) { ?>
+        <dt>This</dt>
+        <dd><?js= this.linkto(data['this'], data['this']) ?></dd>
+    <?js } ?>
+
+    <?js if (data.augments && data.augments.length) { ?>
+        <dt>Extends</dt>
+        <?js data.augments.forEach(function(a) { ?>
+        <dd><?js= self.linkto(a, a) ?></dd>
+    <?js })} ?>
+
+    <?js if (data.overrides) { ?>
+    <dt class="tag-overrides">Overrides</dt>
+    <dd class="tag-overrides">
+        <?js= this.linkto(data.overrides, this.htmlsafe(data.overrides)) ?>
+    </dd>
+    <?js } ?>
+
+    <?js if (data.implementations && data.implementations.length) { ?>
+    <dt class="implementations">Implementations</dt>
+    <?js data.implementations.forEach(function(impl) { ?>
+        <dd class="implementations"><?js= self.linkto(impl, self.htmlsafe(impl)) ?></dd>
+    <?js }); ?>
+    <?js } ?>
+
+    <?js if (data.implements && data.implements.length) { ?>
+    <dt class="implements">Implements</dt>
+    <?js data.implements.forEach(function(impl) { ?>
+        <dd class="implements"><?js= self.linkto(impl, self.htmlsafe(impl)) ?></dd>
+    <?js }); ?>
+    <?js } ?>
+
+    <?js if (data.mixes && data.mixes.length) { ?>
+        <dt class="mixes">Mixes In</dt>
+        <?js data.mixes.forEach(function(a) { ?>
+            <dd class="mixes"><?js= self.linkto(a, a) ?></dd>
+        <?js }); ?>
+    <?js } ?>
+
+    <?js if (data.requires && data.requires.length) { ?>
+        <dt>Requires</dt>
+        <?js data.requires.forEach(function(r) { ?>
+            <dd><?js= self.linkto(r, r) ?></dd>
+        <?js }); ?>
+    <?js } ?>
+
+    <?js if (data.fires && fires.length) { ?>
+        <dt>Fires</dt>
+        <?js fires.forEach(function(f) { ?>
+        <dd><?js= self.linkto(f) ?></dd>
+    <?js })} ?>
+
+    <?js if (data.listens && listens.length) { ?>
+        <dt>Listens</dt>
+        <?js listens.forEach(function(f) { ?>
+        <dd><?js= self.linkto(f) ?></dd>
+    <?js })} ?>
+
+    <?js if (data.listeners && listeners.length) { ?>
+        <dt>Listeners</dt>
+        <?js listeners.forEach(function(f) { ?>
+        <dd><?js= self.linkto(f) ?></dd>
+    <?js })} ?>
+
+    <?js if (data.modifies && modifies.length) { ?>
+        <dt>Modifies</dt>
+        <?js modifies.forEach(function(r) { ?>
+        <?js= self.partial('modifies.tmpl', r) ?>
+    <?js })} ?>
+
+    <?js if (!(data.kind === 'class' && data.classdesc || data.kind === 'module' && data.classdesc)) { ?>
+        <?js if (data.returns && returns.length) { ?>
+            <dt>Returns</dt>
+            <?js returns.forEach(function(r) { ?>
+            <?js= self.partial('returns.tmpl', r) ?>
+        <?js })} ?>
+
+        <?js if (data.exceptions && exceptions.length) { ?>
+            <dt>Throws</dt>
+            <?js exceptions.forEach(function(r) { ?>
+            <?js= self.partial('exceptions.tmpl', r) ?>
+        <?js })} ?>
+
+        <?js if (data.yields && yields.length) { ?>
+            <dt>Yields</dt>
+            <?js yields.forEach(function(r) { ?>
+            <?js= self.partial('returns.tmpl', r) ?>
+        <?js })} ?>
+    <?js } ?>
+
+    <?js if (data.meta && self.outputSourceFiles) {?>
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source">
+        <?js= self.linkto(meta.shortpath) ?>, <?js= self.linkto(meta.shortpath, 'line ' + meta.lineno, null, 'line' + meta.lineno) ?>
+    </dd>
+    <?js } ?>
+
+</dl>
+<?js } ?>
