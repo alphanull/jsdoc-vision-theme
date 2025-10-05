@@ -36,7 +36,9 @@ html {
     }
 
     &.has-scrollbar {
-        ::-webkit-scrollbar { width: var(--scrollbar-width); }
+        ::-webkit-scrollbar {
+            width: auto;
+        }
     }
 
     &.has-no-scrollbar{

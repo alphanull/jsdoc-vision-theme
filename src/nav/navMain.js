@@ -6,7 +6,7 @@
  * - Designed for modern HTML structure with `<menu>` elements and toggle buttons.
  * @module nav/navMain
  * @author   Frank Kudermann - alphanull
- * @version  1.0.0
+ * @version  1.1.0
  * @license  MIT
  * @example
  * // Basic structure:
@@ -32,7 +32,7 @@ export default {
     destroy
 };
 
-let root;
+let root, io, options;
 
 /**
  * Toggles the visibility of a submenu and updates accessibility state.
@@ -212,15 +212,17 @@ function syncTabIndex(submenu, active) {
 
 /**
  * Initializes the navigation system and wires up all required event listeners.
- * @param {string|HTMLElement} [rootSelector='menu']  Root menu container as selector or element.
+ * @param {string|HTMLElement} [rootSelector='menu']              Root menu container as selector or element.
+ * @param {Object}             [opts={}]                          Configuration options.
+ * @param {boolean}            [opts.showScrollIndicators=false]  Whether to show scroll indicators.
  */
-export function init(rootSelector = 'menu') {
+export function init(rootSelector = 'menu', opts = {}) {
 
     root = typeof rootSelector === 'string' ? document.querySelector(rootSelector) : rootSelector;
+    options = opts;
 
     // Initializes toggle buttons and its associated submenu.
-    const toggles = root.querySelectorAll('.nav-submenu-toggle');
-    toggles.forEach(toggle => {
+    root.querySelectorAll('.nav-submenu-toggle').forEach(toggle => {
         const submenu = getSubmenu(toggle);
         syncTabIndex(submenu, false); // Use the unified syncTabIndex function for full accessibility
         submenu.setAttribute('aria-hidden', 'true');
@@ -264,6 +266,29 @@ export function init(rootSelector = 'menu') {
 
     document.addEventListener('pointerdown', docPointerDown); // Closes submenus when clicking outside the root
     document.addEventListener('keydown', handleKeyDown); // keyboard handler for ESC key
+
+    if (options.showScrollIndicators && document.documentElement.classList.contains('has-no-scrollbar')) {
+        // initialize scroll indicators
+        io = new IntersectionObserver(onIntersection);
+        root.querySelectorAll('.has-submenu > .menu-wrapper > menu').forEach(menu => {
+            io.observe(menu.firstElementChild);
+            io.observe(menu.lastElementChild);
+        });
+    }
+}
+
+/**
+ * Handles the intersection of the menu with the viewport.
+ * @param {IntersectionObserverEntry[]} entries  The intersection observer entries.
+ */
+function onIntersection(entries) {
+    entries.forEach(entry => {
+        if (entry.target === entry.target.parentNode.firstElementChild) {
+            entry.target.parentNode.classList.toggle('has-scroll-up', !entry.isIntersecting);
+        } else {
+            entry.target.parentNode.classList.toggle('has-scroll-down', !entry.isIntersecting);
+        }
+    });
 }
 
 /**
@@ -288,4 +313,8 @@ export function destroy() {
         li.removeEventListener('pointerenter', li._pointerenterHandler);
         li.removeEventListener('pointerleave', li._pointerleaveHandler);
     });
+
+    if (options.showScrollIndicators && document.documentElement.classList.contains('has-no-scrollbar')) {
+        io.disconnect();
+    }
 }

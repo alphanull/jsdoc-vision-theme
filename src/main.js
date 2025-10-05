@@ -30,7 +30,7 @@
  * @requires ui/foldable
  * @requires util/publisher
  * @author   Frank Kudermann @ alphanull
- * @version  1.0.0
+ * @version  1.1.0
  * @license  MIT
  * @see https://github.com/alphanull/jsdoc-theme-vision
  */
@@ -52,7 +52,7 @@ document.getElementById('settings-button').addEventListener('click', event => pu
 
 // setup main navigation
 import navMain from './nav/navMain.js';
-navMain.init('#nav-main-wrapper');
+navMain.init('#nav-main-wrapper', { showScrollIndicators: true });
 
 // setup Sticky behavior for sidebar
 import dualStickyNav from './nav/dualStickyNav.js';

@@ -6,6 +6,23 @@ This project adheres to [Semantic Versioning](https://semver.org) and follows th
 
 ---
 
+## [1.1.0] – 2025-10-05
+
+### Added
+
+- Scrolling indicators for dropdown menus (when no scrollbar is present)
+
+### Changed
+
+- Updated (dev) dependencies
+- Optimized scrollbar handling
+
+### Fixed
+
+- Improved scrolling lock when using overlays like the mobile menu
+
+---
+
 ## [1.0.0] – 2025-07-06
 
 ### Added

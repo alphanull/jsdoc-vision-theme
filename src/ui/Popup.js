@@ -3,10 +3,10 @@ import { publish, subscribe, unsubscribe } from '../util/publisher.js';
 /**
  * The popup module. Helper view to display any content in an "popup" style overlay, with a pointer to a certain element on the screen.
  * The popup has "auto" Layout, ie it can adapt to the screen itself, seeking for the optimal placement.
- * @exports  module:ui/Popup
- * @requires util/publisher
+ * @exports  module:lib/ui/Popup
+ * @requires lib/util/publisher
  * @author   Frank Kudermann - alphanull
- * @version  1.3.5
+ * @version  1.5.0
  * @license  MIT
  * @example
  * popup.show(myContentNode);

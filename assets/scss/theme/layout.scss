@@ -38,12 +38,6 @@ body {
         min-height: initial;
         background: white;
     }
-
-    body[style*='overflow: hidden'] > &,
-    .menu-mobile + &,
-    .ov + & {
-        margin-right: var(--scrollbar-width);
-    }
 }
 
 #content-wrapper {

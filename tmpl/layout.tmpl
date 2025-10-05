@@ -77,20 +77,8 @@ if(!this.needsAside) baseClass += ' has-no-sidebar';
         doc.dataset.font = font;
     }
 
-    // calculate scrollbar width
-    const scrollDiv = document.createElement("div");
-    scrollDiv.setAttribute("style", "width: 100px; height: 100px; overflow: scroll; position: absolute; top: -9999px;");
-    doc.appendChild(scrollDiv);
-    let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth; // Get the scrollbar width
-    if (isNaN(scrollbarWidth)) scrollbarWidth = 12;
-    doc.removeChild(scrollDiv);
-
-    const scrollOffset = document.body.scrollHeight > window.innerHeight ? scrollbarWidth : 0;
-    doc.style.setProperty("--scrollbar-offset", `${scrollOffset}px`);
-    doc.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
-
-    if (scrollbarWidth > 0) doc.classList.add("has-scrollbar");
-    else doc.classList.add("has-no-scrollbar");
+    const scrollbarWidth = Math.max(0, window.innerWidth - doc.clientWidth);
+    if (scrollbarWidth > 0) doc.classList.add("has-scrollbar"); else doc.classList.add("has-no-scrollbar");
 
 </script>
 
