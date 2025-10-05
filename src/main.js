@@ -30,7 +30,7 @@
  * @requires ui/foldable
  * @requires util/publisher
  * @author   Frank Kudermann @ alphanull
- * @version  1.1.0
+ * @version  1.1.1
  * @license  MIT
  * @see https://github.com/alphanull/jsdoc-theme-vision
  */
