@@ -47,16 +47,25 @@ const puSearch = new Popup({
  * @returns {Promise<Array>} The parsed index data, or undefined on failure.
  */
 async function loadIndex() {
+    if (typeof window !== 'undefined' && Array.isArray(window.__VISION_THEME_SEARCH_INDEX)) {
+        return window.__VISION_THEME_SEARCH_INDEX;
+    }
+
     try {
         const result = await fetch('static/index.json');
         if (!result.ok) {
             // eslint-disable-next-line no-console
             console.error(`Index Data could not be loaded due to network error: ${result.status}`);
         }
-        return await result.json();
+        const json = await result.json();
+        if (typeof window !== 'undefined') window.__VISION_THEME_SEARCH_INDEX = json;
+        return json;
     } catch (error) {
         // eslint-disable-next-line no-console
         console.error('Index data loading failed', { cause: error });
+        if (typeof window !== 'undefined' && Array.isArray(window.__VISION_THEME_SEARCH_INDEX)) {
+            return window.__VISION_THEME_SEARCH_INDEX;
+        }
     }
 }
 

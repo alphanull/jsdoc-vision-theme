@@ -13,10 +13,11 @@
 
     "templates": {
         "title": "VisionTheme Documentation",
-        "description": "This is the official documentation for the VisionTheme - a modern, clean, fast, responsive, accessible, and highly customizable documentation theme for JSDoc — designed for 2025 and beyond. ",
+        "description": "This is the official documentation for the VisionTheme - a modern, clean, fast, responsive, accessible, and highly customizable documentation theme for JSDoc.",
         "sort": false,
         "logoText": "VisionTheme Documentation",
-        "footer": "<p><b>VisionTheme Version 1.1.1</b> Copyright © 2025-present <a href='https://alphanull.de' target=_blank>alphanull</a> - Frank Kudermann</p>",
+        "footer": "<p><b>VisionTheme Version 1.2.0</b> Copyright © 2025-present <a href='https://alphanull.de' target=_blank>alphanull</a> - Frank Kudermann</p>",
+        "showTitleOnHomepage": false,
         "showFolded": true,
         "showPrivates": false,
         "showSkinSelector": true,

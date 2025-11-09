@@ -31,6 +31,7 @@ if(!this.needsAside) baseClass += ' has-no-sidebar';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta content="<?js= this.desc || this.description ?>" name="description">
+    <?js if(this.canonicalUrl) { ?><link rel="canonical" href="<?js= this.canonicalUrl ?>"><?js } ?>
     <title><?js= this.title ? this.title + ' | ' : '' ?> <?js= title ?></title>
     <link type="text/css" rel="stylesheet" href="styles/main.<?js= this.version ?>.css">
     <?js if(this.cssFile) { ?><link type="text/css" rel="stylesheet" href="<?js= this.cssFile ?>"><?js } ?>
@@ -105,7 +106,7 @@ if(!this.needsAside) baseClass += ' has-no-sidebar';
         <div id="content-wrapper-inner">
 
             <main>
-                <h1 class="page-title"><?js= title ?></h1>
+                <?js if(this.showPageTitle !== false) { ?><h1 class="page-title"><?js= this.pageTitleOverride || title ?></h1><?js } ?>
                 <?js= content ?>
             </main>
 
@@ -193,6 +194,7 @@ if(!this.needsAside) baseClass += ' has-no-sidebar';
 
 </div>
 
+<script defer src="static/index.js"></script>
 <script defer src="scripts/main.<?js= this.version ?>.min.js"></script>
 
 </body>
