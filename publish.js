@@ -185,6 +185,99 @@ function linkifyTutorialContent(html, sourceDir, tutorialDir) {
 }
 
 /**
+ * Generates a sitemap.xml file in the output directory.
+ * Collects all generated HTML pages and creates a sitemap with the provided base URL.
+ * Includes index page, global page (if exists), all doclet pages (modules, classes, namespaces, etc.),
+ * and tutorial pages. Source code pages and member URLs are excluded.
+ * @param   {string} outdir                    The output directory path.
+ * @param   {string} baseUrl                   The base URL for all sitemap entries (e.g., "https://visionplayer.io/docs/").
+ * @param   {Object} urlSources                Object containing all URL sources to include in the sitemap.
+ * @param   {string} urlSources.indexUrl       The index page URL.
+ * @param   {string} urlSources.globalUrl      The global page URL (if exists).
+ * @param   {Object} urlSources.longnameToUrl  Map of longnames to their URLs.
+ * @param   {Object} urlSources.tutorialMap    Map of tutorial names to their URLs.
+ * @param   {Object} urlSources.sourceFiles     Map of source files to exclude from sitemap.
+ * @param   {Set} urlSources.containerLongnames Set of container longnames (modules, classes, namespaces, etc.).
+ * @returns {void}
+ */
+function generateSitemap(outdir, baseUrl, urlSources) {
+    const urls = new Set();
+
+    // Normalize base URL (ensure it ends with /)
+    const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+
+    // Build set of source file URLs to exclude
+    const sourceFileUrls = new Set();
+    if (urlSources.sourceFiles) {
+        Object.keys(urlSources.sourceFiles).forEach(file => {
+            const sourceUrl = helper.longnameToUrl[urlSources.sourceFiles[file].shortened];
+            if (sourceUrl) {
+                const urlWithoutFragment = sourceUrl.split('#')[0];
+                if (urlWithoutFragment) {
+                    sourceFileUrls.add(urlWithoutFragment);
+                }
+            }
+        });
+    }
+
+    // Add index page
+    if (urlSources.indexUrl) {
+        urls.add(urlSources.indexUrl);
+    }
+
+    // Add global page if it exists
+    if (urlSources.globalUrl) {
+        urls.add(urlSources.globalUrl);
+    }
+
+    // Add only container pages (modules, classes, namespaces, etc.), excluding source files and member URLs
+    if (urlSources.longnameToUrl && urlSources.containerLongnames) {
+        urlSources.containerLongnames.forEach(longname => {
+            const url = urlSources.longnameToUrl[longname];
+            if (url) {
+                // Remove fragment identifiers (#) from URLs for sitemap
+                const urlWithoutFragment = url.split('#')[0];
+                if (urlWithoutFragment && !sourceFileUrls.has(urlWithoutFragment)) {
+                    urls.add(urlWithoutFragment);
+                }
+            }
+        });
+    }
+
+    // Add all tutorial pages
+    if (urlSources.tutorialMap) {
+        Object.values(urlSources.tutorialMap).forEach(url => {
+            if (url) {
+                urls.add(url);
+            }
+        });
+    }
+
+    // Sort URLs for consistent output
+    const sortedUrls = Array.from(urls).sort();
+
+    // Generate sitemap.xml content
+    const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sortedUrls.map(url => {
+    // Remove leading slash from URL if present to avoid double slashes
+    const normalizedUrl = url.startsWith('/') ? url.slice(1) : url;
+    const fullUrl = normalizedBaseUrl + normalizedUrl;
+    return `    <url>
+        <loc>${fullUrl}</loc>
+    </url>`;
+}).join('\n')}
+</urlset>
+`;
+
+    // Write sitemap.xml to static directory
+    const staticDir = path.join(outdir, 'static');
+    utils.mkdirpSync(staticDir);
+    const sitemapPath = path.join(staticDir, 'sitemap.xml');
+    fs.writeFileSync(sitemapPath, sitemapContent, 'utf8');
+}
+
+/**
  * Main entry point for the JSDoc Vision Theme.
  * This function is called by JSDoc to generate the entire documentation output.
  * @param {taffy}  taffyData  The TaffyDB database containing all parsed doclets.
@@ -616,5 +709,37 @@ export function publish(taffyData, opts, tutorials) { // eslint-disable-line max
     fs.writeFileSync(indexPath, JSON.stringify(searchIndex, null, 2), 'utf8');
     const indexJsContent = `window.__VISION_THEME_SEARCH_INDEX = ${JSON.stringify(searchIndex)};`;
     fs.writeFileSync(indexJsPath, indexJsContent, 'utf8');
+
+    // generate sitemap.xml if sitemap config is set
+    const sitemapBaseUrl = typeof templateConfig.sitemap === 'string' && templateConfig.sitemap.trim()
+        ? templateConfig.sitemap.trim()
+        : null;
+
+    if (sitemapBaseUrl) {
+        // Build set of container longnames (modules, classes, namespaces, mixins, externals, interfaces)
+        const containerLongnames = new Set();
+        Object.keys(helper.longnameToUrl).forEach(longname => {
+            const myClasses = helper.find(classes, { longname }, data),
+                  myExternals = helper.find(externals, { longname }, data),
+                  myInterfaces = helper.find(interfaces, { longname }, data),
+                  myMixins = helper.find(mixins, { longname }, data),
+                  myModules = helper.find(modules, { longname }, data),
+                  myNamespaces = helper.find(namespaces, { longname }, data);
+
+            if (myModules.length || myClasses.length || myNamespaces.length
+              || myMixins.length || myExternals.length || myInterfaces.length) {
+                containerLongnames.add(longname);
+            }
+        });
+
+        generateSitemap(outdir, sitemapBaseUrl, {
+            indexUrl,
+            globalUrl: members.globals.length > 0 ? globalUrl : null,
+            longnameToUrl: helper.longnameToUrl,
+            tutorialMap,
+            sourceFiles: outputSourceFiles ? sourceFiles : null,
+            containerLongnames
+        });
+    }
 
 }

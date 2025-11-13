@@ -6,6 +6,14 @@ This project adheres to [Semantic Versioning](https://semver.org) and follows th
 
 ---
 
+## [1.2.1] - 2025-11-13
+
+### Added
+
+- Added a `sitemap` option to generate a `sitemap.xml` file in the output's static directory. When set to a base URL string (e.g., `"https://visionplayer.io/docs/"`), the theme will automatically generate a sitemap containing all documentation pages (index, modules, classes, namespaces, tutorials, etc.), excluding source code pages.
+
+---
+
 ## [1.2.0] - 2025-11-09
 
 ### Added
