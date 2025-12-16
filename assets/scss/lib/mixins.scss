@@ -50,9 +50,9 @@
 // Mixin: inset
 // All arguments optional, defaults to 0.
 @mixin inset($top: 0, $right: null, $bottom: null, $left: null) {
-    $right: if($right == null, $top, $right);
-    $bottom: if($bottom == null, $top, $bottom);
-    $left: if($left == null, $right, $left);
+    @if $right == null { $right: $top; }
+    @if $bottom == null { $bottom: $top; }
+    @if $left == null { $left: $right; }
 
     inset: #{$top} #{$right} #{$bottom} #{$left};
 }
@@ -202,15 +202,25 @@ $max-page-width: 1280;
         flex-shrink: 0;
         align-self: center;
         vertical-align: middle;
-        width: if(meta.type-of($size) == list, list.nth($size, 1), $size);
-        height: if(meta.type-of($size) == list, list.nth($size, 2), $size);
         margin: $margin;
         background: $background;
-        mask-size: if(meta.type-of($size) == list, list.nth($size, 1) list.nth($size, 2), $size);
         mask-position: center;
         mask-repeat: no-repeat;
-        // use (only) vendor prefix because it results in less inline svg
-        // and all browsers support it anyways
+
+        @if meta.type-of($size) == list {
+            $mask-width: list.nth($size, 1);
+            $mask-height: list.nth($size, 2);
+
+            width: $mask-width;
+            height: $mask-height;
+            mask-size: $mask-width $mask-height;
+        } @else {
+            width: $size;
+            height: $size;
+            mask-size: $size;
+        }
+
+        // use (only) vendor prefix because it results in less inline svg and all browsers support it anyways
         /* stylelint-disable-next-line property-no-vendor-prefix */
         @if $url != '' { -webkit-mask-image: svg-load($url); }
     }
@@ -233,8 +243,8 @@ $max-page-width: 1280;
 
 $breakpoints: (
     phone: 'only screen and (max-width: 449px)',
-    phablet: 'only screen and (max-width: 640px)',
-    tablet-narrow: 'only screen and (max-width: 860px)',
+    phablet: 'only screen and (max-width: 576px)',
+    tablet-narrow: 'only screen and (max-width: 768px)',
     tablet: 'only screen and (max-width: 1023px)',
     desktop-narrow: 'only screen and (max-width: 1200px)',
     desktop: 'only screen and (min-width: 1024px)',

@@ -6,6 +6,18 @@ This project adheres to [Semantic Versioning](https://semver.org) and follows th
 
 ---
 
+## [1.2.2] - 2025-12-17
+
+### Changed
+
+- Updated CSS libraries
+- Updated dev dependencies
+
+### Fixed
+
+- Improved conversion to SEO description
+- Lineheight in regular quotes
+
 ## [1.2.1] - 2025-11-13
 
 ### Added
